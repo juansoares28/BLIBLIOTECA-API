@@ -41,7 +41,7 @@ O projeto segue separação de responsabilidades para facilitar manutenção e e
 └── 📄 appsettings*.json # Configurações por ambiente
 ```
 
-> Observação: no repositório a pasta está como **`Comunication`**. Se a intenção era **`Communication`**, vale renomear depois para padronizar.
+
 
 ---
 
