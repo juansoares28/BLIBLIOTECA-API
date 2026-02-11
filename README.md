@@ -1,127 +1,131 @@
+# 📚 Biblioteca API - Gerenciamento de Livros
 
-📚 Biblioteca API - Gerenciamento de Livros
-Este projeto é uma RESTful API desenvolvida com ASP.NET Core (.NET 10) para o gerenciamento de um catálogo de livros. O sistema implementa operações completas de CRUD (Create, Read, Update, Delete) seguindo as melhores práticas de arquitetura de software e design de código.
+![.NET](https://img.shields.io/badge/.NET%2010-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
+![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge)
 
-🚀 Tecnologias e Arquitetura
-O projeto foi construído utilizando o que há de mais moderno no ecossistema Microsoft:
+> Uma API RESTful para gerenciamento de acervo literário, desenvolvida com as tecnologias mais recentes do ecossistema Microsoft.
 
-C# 14 (Utilizando recursos modernos como Primary Constructors)
+---
 
-.NET 10 (LTS): Versão de Longo Suporte, garantindo performance e estabilidade.
+## 📋 Sobre o Projeto
 
-ASP.NET Core Web API
+Este projeto foi desenvolvido como parte do meu portfólio acadêmico em **Ciência da Computação**. O objetivo é demonstrar a implementação de uma arquitetura organizada e escalável, utilizando **Injeção de Dependência**, **Service Layer Pattern** e as novidades do **.NET 10**.
 
-Injeção de Dependência (DI) nativa
+O sistema gerencia o ciclo de vida completo de livros (**CRUD**), com validações de negócio e tratamento de erros padronizado.
 
-Service Layer Pattern: Separação clara entre a lógica de negócios e o controle de requisições.
+---
 
-DTOs (Data Transfer Objects): Para segurança e validação no tráfego de dados.
+## 🚀 Tecnologias Utilizadas
 
-Persistência em Memória: Estrutura otimizada para desenvolvimento ágil.
+- **Runtime:** .NET 10
+- **Linguagem:** C# 14 (Primary Constructors)
+- **Framework:** ASP.NET Core Web API
+- **Arquitetura:** MVC + Service Layer
+- **Documentação:** OpenAPI/Swagger
 
-⚙️ Como Executar
-Pré-requisitos: .NET 10 SDK instalado.
+---
 
-Bash
-# Clone este repositório
-git clone https://github.com/SEU-USUARIO/NOME-DO-REPO.git
+## 🏛️ Arquitetura do Projeto
 
-# Entre na pasta
-cd BLIBLIOTECA
+O projeto segue separação de responsabilidades para facilitar manutenção e evolução.
 
-# Execute o projeto
+```text
+📂 BLIBLIOTECA-API
+├── 📂 Controllers       # (Apresentação) Endpoints/rotas HTTP
+├── 📂 Services          # (Regra de Negócio) Lógica principal
+├── 📂 Models            # (Domínio) Entidades (ex.: Book)
+├── 📂 Comunication      # (DTOs) Requests/Responses (contratos da API)
+├── 📂 Properties        # Configurações do projeto/ambiente
+├── 📄 Program.cs        # Configuração de DI e pipeline
+└── 📄 appsettings*.json # Configurações por ambiente
+```
+
+> Observação: no repositório a pasta está como **`Comunication`**. Se a intenção era **`Communication`**, vale renomear depois para padronizar.
+
+---
+
+## 🔌 Endpoints da API
+
+| Método | Endpoint            | Descrição              | Sucesso |
+|-------:|---------------------|------------------------|:-------:|
+| POST   | `/api/books`        | Cria um novo livro     | 201     |
+| GET    | `/api/books`        | Lista todos os livros  | 200     |
+| GET    | `/api/books/{id}`   | Busca livro por ID     | 200     |
+| PUT    | `/api/books/{id}`   | Atualiza um livro      | 204     |
+| DELETE | `/api/books/{id}`   | Remove um livro        | 204     |
+
+---
+
+## 🛠️ Como Executar
+
+### Pré-requisitos
+- **.NET 10 SDK** instalado
+
+### Passo a passo
+
+```bash
+# Clone o repositório
+git clone https://github.com/juansoares28/BLIBLIOTECA-API.git
+
+# Entre na pasta do projeto
+cd BLIBLIOTECA-API
+
+# Restaurar dependências
+dotnet restore
+
+# Executar a aplicação
 dotnet run
-A API estará rodando em https://localhost:PORTA (verifique o console para o número da porta).
+```
 
-🧪 Como Testar com Postman / Insomnia
-Abaixo estão os detalhes para testar cada endpoint da API.
+A API vai iniciar em uma URL como:
+- `https://localhost:PORTA`
+- `http://localhost:PORTA`
 
-1. Criar um Livro (POST)
-Cadastra um novo livro no sistema. O ID é gerado automaticamente.
+> Confira a porta no console. Se o Swagger estiver habilitado, normalmente fica em `/swagger`.
 
-URL: /api/books
+---
 
-Método: POST
+## 🧪 Testando com Postman
 
-Corpo (JSON):
+### 1) Configurar `baseUrl`
+No Postman, crie um **Environment** e adicione:
 
-JSON
+- `baseUrl` = `https://localhost:PORTA`
+
+Aí você usa assim nas requisições:
+- `{{baseUrl}}/api/books`
+
+### 2) Exemplo de requisição (Criar livro)
+
+**POST** `{{baseUrl}}/api/books`  
+**Body** → raw → JSON:
+
+```json
 {
-  "title": "O Senhor dos Anéis",
-  "author": "J.R.R. Tolkien",
-  "year": 1954,
+  "title": "Clean Code",
+  "author": "Robert C. Martin",
+  "year": 2008,
   "genre": 1,
-  "description": "Uma jornada épica na Terra Média.",
-  "price": 129.90,
-  "stock": 15
+  "description": "Essencial para engenheiros de software.",
+  "price": 99.90,
+  "stock": 10
 }
-Retornos Possíveis:
+```
 
-201 Created: Sucesso (retorna o livro criado com link Location).
+---
 
-400 Bad Request: Dados inválidos (ex: preço negativo).
+## 🔮 Roadmap (Próximos Passos)
 
-409 Conflict: Livro com mesmo título e autor já existe.
+- [ ] Banco de Dados: Entity Framework Core (SQL Server/PostgreSQL)
+- [ ] Mapeamento: AutoMapper
+- [ ] Segurança: JWT (Autenticação/Autorização)
+- [ ] CI/CD: GitHub Actions
 
-2. Listar Todos (GET)
-Retorna o catálogo completo.
+---
 
-URL: /api/books
+## 👨‍💻 Autor
 
-Método: GET
-
-Retorno: 200 OK com a lista de objetos JSON.
-
-3. Buscar por ID (GET)
-Retorna os detalhes de um único livro.
-
-URL: /api/books/{id} (ex: /api/books/1)
-
-Método: GET
-
-Retornos Possíveis:
-
-200 OK: Livro encontrado.
-
-404 Not Found: ID inexistente.
-
-4. Atualizar Livro (PUT)
-Atualiza os dados de um livro existente.
-
-URL: /api/books/{id}
-
-Método: PUT
-
-Corpo (JSON): Envie o objeto completo com os novos dados.
-
-Retornos Possíveis:
-
-204 No Content: Atualizado com sucesso.
-
-404 Not Found: Livro não encontrado.
-
-5. Deletar Livro (DELETE)
-Remove um livro do catálogo.
-
-URL: /api/books/{id}
-
-Método: DELETE
-
-Retornos Possíveis:
-
-204 No Content: Removido com sucesso.
-
-404 Not Found: ID não encontrado.
-
-🔮 Roadmap (Futuro do Projeto)
-Este projeto está em evolução constante. As próximas implementações planejadas são:
-
-[ ] Persistência em Banco de Dados: Migração da lista estática para SQL Server ou PostgreSQL utilizando Entity Framework Core.
-
-[ ] Mapeamento Automático: Implementação do AutoMapper para reduzir código repetitivo entre DTOs e Entidades.
-
-[ ] Segurança: Implementação de Autenticação e Autorização (JWT).
-
-[ ] LGPD: Refinamento do tratamento de dados sensíveis visando conformidade com a Lei Geral de Proteção de Dados.
-
-Desenvolvido por Juan 💻 Estudante de Ciência da Computação (Graduação 2028)
+**Juan Soares G Vazquez**  
+Estudante de Ciência da Computação (Graduação 2028) — foco em Backend, Infraestrutura e Arquitetura de Software.
