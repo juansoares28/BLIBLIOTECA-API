@@ -82,7 +82,6 @@ A API vai iniciar em uma URL como:
 - `https://localhost:PORTA`
 - `http://localhost:PORTA`
 
-> Confira a porta no console. Se o Swagger estiver habilitado, normalmente fica em `/swagger`.
 
 ---
 
